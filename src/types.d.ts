@@ -1,6 +1,6 @@
-//tipos para definir atributos de la data y la info que pueden contener
-export type Weather = 'sunny' | 'rainy' | 'cloudy' | 'windy' | 'stormy'
-export type Visibility = 'great'|'good'|'ok'|'poor'
+import { Weather, Visibility } from "./enums"
+/*declaracion de tipos para definir atributos de la data y la info que pueden contener
+    export type Visibility = 'great'|'good'|'ok'|'poor'*/
 
 //interface con la estructura de la data(json)
 export interface DiaryEntry {
@@ -14,7 +14,7 @@ export interface DiaryEntry {
 // export type DiaryEntryWithOutSensitiveInfo = pick <DiaryEntry,'id'|'date'|'weather'|'visibility'>
 
 // segunda forma de excluir un info de la estructura de data anterior
-export type DiaryEntryWithOutSensitiveInfo = omit<DiaryEntry, 'comment'>
+export type DiaryEntryWithOutSensitiveInfo = Omit<DiaryEntry, 'comment'>
 
 //tipo para la creacion de una entrada nueva, omite el id debido a que este se define desde el archivo de servicios
-export type newDiaryEntry = omit<DiaryEntry, 'id'>
+export type newDiaryEntry = Omit<DiaryEntry, 'id'>

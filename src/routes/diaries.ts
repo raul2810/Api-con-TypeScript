@@ -1,5 +1,6 @@
 import express from "express"
-import * as diaryServices from '../services/diaryService' 
+import * as diaryServices from '../services/diaryService'
+import  toNewDiaryEntry from '../utils'
 
 const router = express.Router()
 //metodo get que recupera todas las entradas sin el comentario
@@ -16,16 +17,14 @@ router.get('/:id',(req,res) => {
 //se define en este post como agregar entradas al diario
 router.post('/',(req,res) => {
     try {
-        const {date,weather,visibility,comment} = req.body
-        const addedDiaryEntry = diaryServices.addDiary({
-        date,
-        weather,
-        visibility,
-        comment
-        })
+        const newDiaryEntry = toNewDiaryEntry(req.body)
+        const addedDiaryEntry = diaryServices.addDiary(newDiaryEntry)
     res.json(addedDiaryEntry)
     } catch (e) {
-        res.status(400)
+        if (e instanceof Error) {
+            // e is narrowed to Error!
+            res.status(400).send(e.message)
+          }
     }
     
 }) 
